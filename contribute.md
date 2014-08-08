@@ -55,11 +55,10 @@ You can also exclude these features by using `bundle install --without libvirt p
 ### Submit Patches
 First, make sure you are a member of the [Foreman Developers](https://groups.google.com/forum/?fromgroups#!forum/foreman-dev) mailing list.
 
-Patches to fix bugs or add new features are always appreciated. If you are going to work on a specific issue, make a note in the issue details so the developers will know what you're working on.
-
-We try to keep a one commit per bug/feature policy, please try to create an issue which is specific for your patch details.
-
+Patches to fix bugs or add new features are always appreciated. 
 Please make sure there is a [Redmine issue](http://projects.theforeman.org/projects/foreman/issues) open for the change you are going to submit, as you will want to reference it in your commit message; this is very helpful when generating release notes.
+We try to keep a one commit per bug/feature policy, please try to create an issue which is specific for your patch details.
+If you are going to work on a specific issue, make a note in the issue details so the developers will know what you're working on.
 
 1. Create a feature/topic branch
 
@@ -85,6 +84,51 @@ Merge upstream develop to local develop
 * git push origin develop
 
 Now follow step 4 to the end from above.
+
+### Commit Message
+
+Git commit messages should give a brief overview of the bug or feature along with a short description of what was implemented. 
+Well formatted git commit messages should have the following, in this order: 
+
+ * A short message of the change in the first line (70 characters) including a Redmine issue number at the start
+ * A blank line
+ * A detailed description of the change, split into paragraphs where needed (lines should be wrapped at approximately 74 characters)
+
+Try to ensure the description is of the change and not the bug title, e.g. "X now accepts Y when doing Z" rather than "Z throws error".
+For further reading, you can read [Tim Pope's article about git message formatting](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
+
+#### Redmine
+
+Each git commit message should contain a reference to the Redmine issue at the beginning of the commit message. 
+There are two ways to reference a redmine issue. 
+The first will simply attach the commit to the Redmine issues:
+
+```
+Refs #123 - Improve performance of content views
+```
+
+The second type will actually close out the issue once the PR containing the commit gets merged:
+
+```
+Fixes #123 - Fix content view publish bug
+```
+
+#### Example
+
+Below is an example of how a git commit message ought to look like:
+
+```
+Fixes #1234 - Fix content view yum publish bug
+
+Fix a problem where content views were not being published if they
+contained yum repositories. The repositories were not being referenced
+correctly. To fix this, I changed the repository look up method to go to
+ElasticSearch and find the attached repos.
+
+This fix also addresses a problem with promoting that was also caused by
+this bug. Promoting also has another bug though that needs to be fixed
+before it works correctly.
+``` 
 
 ## Non-code related contributions
 These don't require any software development experience, just some time and the desire to help.
